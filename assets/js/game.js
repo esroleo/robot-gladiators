@@ -26,7 +26,7 @@ console.log("Your robot, " + playerName + ", has won!");
 // Players information
 
 var playerName = window.prompt("What is your robot's name?");
-var playerHealth =  100; // Default is 100
+var playerHealth =  10; // Default is 100
 var playerAttack = 10;
 var playerMoney = 10;
 
@@ -136,7 +136,10 @@ for(var i = 0; i < enemyNames.length; i++) {
 
         // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
         fight(pickedEnemyName);
-      }
-  }
+    } else {
+          window.alert("You have lost your robot in battle! Game Over!");
+          break;
+        }
+}
 
 
