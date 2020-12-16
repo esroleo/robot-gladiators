@@ -23,6 +23,17 @@ console.log("Your robot, " + playerName + ", has won!");
 // Moved to the for loop of our game counter
 //window.alert("Welcome to Robot Gladiators!");
 
+// function to generate a random numeric value
+var randomNumber = function(min, max) {
+    // add arguments to be used for the lower
+    // math.random() * 21 is becuase we ant to generate a random number but cant be too low.
+    //var value = Math.floor(Math.random() * 21) + 40;
+    var value = Math.floor(Math.random() * (max - min + 1) + min);
+
+return value;
+};
+
+
 // Players information
 
 var playerName = window.prompt("What is your robot's name?");
@@ -35,7 +46,8 @@ var gameStatus = 0; // 0 is game enabled
 console.log(playerName, playerAttack, playerHealth);
 
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
-var enemyHealth = 20; // Default is 50
+// var enemyHealth = 20; // Default is 50
+var enemyHealth = randomNumber(40, 60); // nearest round number between a random number 0-20.xxxx and sum the result by 40.
 var enemyAttack = 10;
 
 // This creates a function named "fight"
@@ -55,8 +67,15 @@ var fight = function(enemyName) {
             //Subtract the value of `playerAttack` from the value of `enemyHealth` and use that result to update the value in the `enemyHealth` variable
             // Alert players that they are starting the round
             window.alert("Robots Fight!");
-            window.alert(playerName + " attacks " + "with an attack power of " + playerAttack);
-            enemyHealth =  enemyHealth - playerAttack;
+            
+
+            // generate random damage value based on player's attack power
+            var damage = randomNumber(playerAttack - 3, playerAttack);
+
+            // Show how much attack power is done.
+            window.alert(playerName + " attacks " + "with an attack power of " + damage);
+            //enemyHealth =  enemyHealth - playerAttack;
+            enemyHealth = Math.max(0, enemyHealth - damage); // window.math(), enemyHealth variable will not be less than 0.
 
             // Log a resulting message to the console so we know that it worked.
             console.log (
@@ -67,7 +86,7 @@ var fight = function(enemyName) {
             if (enemyHealth <= 0) {
                 window.alert(enemyName + " has died!");
                 // Reward player with money for destroying robot
-              //  playerMoney = playerMoney + 20;
+                playerMoney = playerMoney + 20;
 
                 // leave while() loop since enemy is dead
                 break;
@@ -77,9 +96,15 @@ var fight = function(enemyName) {
             }
         
         
+    
+
+            // generate random damage value based on enemy's attack power
+            var damage = randomNumber(enemyAttack - 3, enemyAttack);
+
             // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
             window.alert(enemyName + " attacks " + "with an attack power of " + enemyAttack);
-            playerHealth = playerHealth - enemyAttack;
+
+            playerHealth = Math.max(0, playerHealth - damage); // window.math(), playerHealth variable will not be less than 0.
         
             // Log a resulting message to the console so we know that it worked.
             console.log(
@@ -105,7 +130,8 @@ var fight = function(enemyName) {
                 if (confirmSkip) {
                 window.alert(playerName + " has decided to skip this fight. Goodbye!");
                 // subtract money from playerMoney for skipping
-                playerMoney = playerMoney - 2;
+                //playerMoney = playerMoney - 2;
+                playerMoney = Math.max(0, playerMoney - 10); // playerMoney - 10 math() will not allow money to dip to negative numbers.
                 console.log("player money", playerMoney)
                 // Break out of the while loop - next robot will come.
                 break;
@@ -161,16 +187,19 @@ var startGame = function() {
                     }
                 
                 } else {
-                    //This is cuasing our game to show robot lost twice.
+                    //This is causing our game to show robot lost twice.
                     //window.alert("You have lost your robot in battle! Game Over!");
-                    break;
+                    debugger;
+                    //break;
+                    continue; // exit the if statment and go to end game.
+                    
                 }
             }
 
             // after the loop ends, player is either out of health or enemies to fight, so run the endGame function
             endGame();
         }
-}
+    }
 }   
 
 // function to end the entire game
@@ -248,10 +277,20 @@ var shop = function() {
     };
 }
 
-debugger;
+
+
+
+
+//debugger;
     // start the game when the page loads
+    //debugger;
 if (gameStatus === 0) {
     startGame();
 }
 
 
+// prints 100
+//console.log(Math.max(10, 20, 100));
+
+// prints 0
+//console.log(Math.max(0, -50));
