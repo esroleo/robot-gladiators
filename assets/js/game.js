@@ -51,16 +51,41 @@ var playerInfo = {
 // You can also log multiple values at once like this
 console.log(playerInfo.name, playerInfo.attack, playerInfo.health);
 
+
+// enemyInfo replaced by an array of ojbects 
+
+var enemyInfo = [
+    {
+      name: "Roborto",
+      attack: randomNumber(10, 14)
+    },
+    {
+      name: "Amy Android",
+      attack: randomNumber(10, 14)
+    },
+    {
+      name: "Robo Trumble",
+      attack: randomNumber(10, 14)
+    }
+  ];
+
+  //var enemyHealth = randomNumber(40, 60); // nearest round number between a random number 0-20.xxxx and sum the result by 40.
+  // random number for all enemys health with the use of an object.
+  
+/*
 var enemyNames = ["Roborto", "Amy Android", "Robo Trumble"];
 // var enemyHealth = 20; // Default is 50
-var enemyHealth = randomNumber(40, 60); // nearest round number between a random number 0-20.xxxx and sum the result by 40.
 var enemyAttack = 10;
+*/
+
 
 // This creates a function named "fight"
-var fight = function(enemyName) {
+//var fight = function(enemyName) {
+    //update enemyName to enemy - object is coming from startgame function now
+var fight = function(enemy) {
 
     // While enemy robot alive, fight
-    while(enemyHealth  > 0 && playerInfo.health > 0) {
+    while(enemy.health  > 0 && playerInfo.health > 0) {
         // Would you like to fight or skip
         var promptFight = window.prompt("Would you like to FIGHT or SKIP this battle? Enter 'FIGHT' or 'SKIP' to choose.");
 
@@ -81,16 +106,16 @@ var fight = function(enemyName) {
             // Show how much attack power is done.
             window.alert(playerInfo.name + " attacks " + "with an attack power of " + damage);
             //enemyHealth =  enemyHealth - playerInfo.attack;
-            enemyHealth = Math.max(0, enemyHealth - damage); // window.math(), enemyHealth variable will not be less than 0.
+            enemy.health = Math.max(0, enemy.health - damage); // window.math(), enemyHealth variable will not be less than 0.
 
             // Log a resulting message to the console so we know that it worked.
             console.log (
-                playerInfo.name + " attacked " + enemyName + ". " + enemyName + " now has " + enemyHealth + " health remaining."
+                playerInfo.name + " attacked " + enemy.name + ". " + enemy.name + " now has " + enemy.health + " health remaining."
             );
 
             // check enemy's health
-            if (enemyHealth <= 0) {
-                window.alert(enemyName + " has died!");
+            if (enemy.health <= 0) {
+                window.alert(enemy.name + " has died!");
                 // Reward player with money for destroying robot
                 playerInfo.money = playerInfo.money + 20;
 
@@ -98,23 +123,23 @@ var fight = function(enemyName) {
                 break;
             } 
             else {
-                window.alert(enemyName + " still has " + enemyHealth + " health left.");
+                window.alert(enemy.name + " still has " + enemy.health + " health left.");
             }
         
         
     
 
             // generate random damage value based on enemy's attack power
-            var damage = randomNumber(enemyAttack - 3, enemyAttack);
+            var damage = randomNumber(enemy.attack - 3, enemy.attack);
 
             // Subtract the value of `enemyAttack` from the value of `playerHealth` and use that result to update the value in the `playerHealth` variable.
-            window.alert(enemyName + " attacks " + "with an attack power of " + enemyAttack);
+            window.alert(enemy.name + " attacks " + "with an attack power of " + enemy.attack);
 
             playerInfo.health = Math.max(0, playerInfo.health - damage); // window.math(), playerHealth variable will not be less than 0.
         
             // Log a resulting message to the console so we know that it worked.
             console.log(
-                enemyName + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + enemyHealth + " health remaining."
+                enemy.name + " attacked " + playerInfo.name + ". " + playerInfo.name + " now has " + enemy.health + " health remaining."
             );
             // check player's health
             if (playerInfo.health <= 0) {
@@ -143,9 +168,6 @@ var fight = function(enemyName) {
                 break;
                 }
             }
-    
-        
-
     }
 
 }
@@ -161,7 +183,7 @@ var startGame = function() {
     playerInfo.attack = 10;
     playerInfo.money = 5;
     //debugger;
-    for(var i = 0; i < enemyNames.length; i++) {
+    for(var i = 0; i < enemyInfo.length; i++) {
         // check if gameStatus === 1 to exit
         console.log(playerInfo.attack);
 
@@ -173,20 +195,26 @@ var startGame = function() {
                 window.alert("Welcome to Robot Gladiators! Round " + (i + 1));
 
                 // pick new enemy to fight based on the index of the enemyNames array
-                var pickedEnemyName = enemyNames[i];
-
+                //var pickedEnemyName = enemyNames[i];
+                // assign the enemy info object example index 0 to pickedEnemyObj. Effectly creating an instance of enemyInfo 1 in pickedEnemyObj
+                var pickedEnemyObj = enemyInfo[i];
                 // reset enemyHealth before starting new fight
-                enemyHealth = 50;
+                //enemyHealth = randomNumber(40, 60);
+                // reset enemyHealth with a object
+                pickedEnemyObj.health = randomNumber(40, 60);
 
                 // use debugger to pause script from running and check what's going on at that moment in the code
                 // debugger;
 
                 // pass the pickedEnemyName variable's value into the fight function, where it will assume the value of the enemyName parameter
-                fight(pickedEnemyName);
+                //fight(pickedEnemyName);
+                // replace pickedEnemyName with object of topmost player selected from the ojbect above pickedEnemyObj
+                fight(pickedEnemyObj);
+
 
                 // if we're not at the last enemy in the array
                 // if player is still alive and we're not at the last enemy in the array
-                if (playerInfo.health > 0 && i < enemyNames.length - 1) {
+                if (playerInfo.health > 0 && i < enemyInfo.length - 1) {
                     // ask if player wants to use the store before next round
                     var storeConfirm = window.confirm("The fight is over, visit the store before the next round?");
                     // if yes, take them to the store() function
