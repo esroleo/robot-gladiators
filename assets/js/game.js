@@ -294,6 +294,7 @@ var shop = function() {
              // increase attack and decrease money
              playerInfo.attack = playerInfo.attack + 6;
              playerInfo.money = playerInfo.money - 7;
+             console.log(playerInfo.money);
             }
             else {
               window.alert("You don't have enough money!");
