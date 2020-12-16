@@ -181,7 +181,7 @@ var startGame = function() {
     // reset player stats
     playerInfo.health = 100; // 100 health is the default
     playerInfo.attack = 10;
-    playerInfo.money = 5;
+    playerInfo.money = 10;
     //debugger;
     for(var i = 0; i < enemyInfo.length; i++) {
         // check if gameStatus === 1 to exit
