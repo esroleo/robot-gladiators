@@ -65,6 +65,7 @@ var playerInfo = {
         this.attack = 10;
     },
     refillHealth : function(){
+        debugger;
         if (this.money >=7) {
             this.health += 20;
             this.money -= 7;
@@ -320,14 +321,16 @@ var endGame = function() {
 
 var shop = function() {
     // ask player what they'd like to do
+
     var shopOptionPrompt = window.prompt(
-    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 'refill', 'upgrade', or 'leave' to make a choice."
+    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 = 'refill', 2 = 'upgrade', or 3 = 'leave' to make a choice."
     );
 
     // use switch to carry out action
     switch (shopOptionPrompt) {
-        case "REFILL": // new case
-        case "refill":
+        //case "REFILL": // new case
+        //case "refill":
+        case "1":
             playerInfo.refillHealth();
             break;
             /* Logic moved to player info object
@@ -344,8 +347,9 @@ var shop = function() {
             break;
             */
 
-            case "UPGRADE": // new case
-            case "upgrade":
+        //case "UPGRADE": // new case
+        //case "upgrade":
+        case "2":
             playerInfo.upgradeAttack();
             break;  
             /* Logic moved to player info object    
@@ -363,8 +367,9 @@ var shop = function() {
             break;
             */
         
-        case "LEAVE": // new case
-        case "leave":           
+        //case "LEAVE": // new case
+        //case "leave":           
+        case "3":
             window.alert("Leaving the store.");
             // do nothing, so function will end
             break;
