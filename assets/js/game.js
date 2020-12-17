@@ -39,12 +39,38 @@ return value;
 
 // Players information
 // Create object for player info
+// Shop variable logic into the players info object 
+// Shop conditional logic into the players info object
 
 var playerInfo = {
     name: window.prompt("What is your robot's name?"),
     health: 100, // Default is 100
     attack: 10,
-    money: 10
+    money: 10,
+    reset: function() {
+        this.health = 100;
+        this.money = 10;
+        this.attack = 10;
+    },
+    refillHealth : function(){
+        if (this.money >=7) {
+            this.health += 20;
+            this.money -= 7;
+            window.alert("Refilling player's health by 20 for 7 dollars.");
+        } else {
+            window.alert("You don't have enough money!");
+        }
+    },
+    upgradeAttack: function () {
+        if (this.money >= 7) {
+            this.attack += 6;
+            this.money -= 7;
+            window.alert("Upgrading player's attack by 6 for 7 dollars.");
+        }
+        else {
+            window.alert("You don't have enough money!");
+        }
+    }
 };
 
 
@@ -179,9 +205,12 @@ var fight = function(enemy) {
 var startGame = function() {
 
     // reset player stats
-    playerInfo.health = 100; // 100 health is the default
-    playerInfo.attack = 10;
-    playerInfo.money = 10;
+    //playerInfo.health = 100; // 100 health is the default
+    //playerInfo.attack = 10;
+    //playerInfo.money = 10;
+    
+    // Reset player with an object reset called playerInfo.reset();
+    playerInfo.reset();
     //debugger;
     for(var i = 0; i < enemyInfo.length; i++) {
         // check if gameStatus === 1 to exit
@@ -274,6 +303,9 @@ var shop = function() {
     switch (shopOptionPrompt) {
         case "REFILL": // new case
         case "refill":
+            playerInfo.refillHealth();
+            break;
+            /* Logic moved to player info object
             if (playerInfo.money >= 7) {
               window.alert("Refilling player's health by 20 for 7 dollars.");
           
@@ -285,9 +317,13 @@ var shop = function() {
               window.alert("You don't have enough money!");
             }
             break;
+            */
 
             case "UPGRADE": // new case
             case "upgrade":
+            playerInfo.upgradeAttack();
+            break;  
+            /* Logic moved to player info object    
             if (playerInfo.money >= 7) {
               window.alert("Upgrading player's attack by 6 for 7 dollars.");
           
@@ -300,6 +336,7 @@ var shop = function() {
               window.alert("You don't have enough money!");
             }
             break;
+            */
         
         case "LEAVE": // new case
         case "leave":           
