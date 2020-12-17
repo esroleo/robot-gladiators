@@ -145,7 +145,7 @@ var fight = function(enemy) {
             // lower case now so || condition not required if (promptFight === "skip"|| promptFight === "SKIP") {
             if (promptFight.toLowerCase() === "skip" || (!promptFight) ) {
                 // confirm player wants to skip
-                var confirmSkip = window.confirm("Are you sure you'd like to quit?");
+                var confirmSkip = window.confirm("Are you sure you'd like to skip the battle, you will loose 10 dollars?");
 
                 // if yes (true), leave fight
                 if (confirmSkip) {
@@ -219,8 +219,6 @@ var fight = function(enemy) {
 
         // Would you like to fight or skip
         fightOrSkip();
-
-        
     }
 }
 
@@ -323,15 +321,19 @@ var shop = function() {
     // ask player what they'd like to do
 
     var shopOptionPrompt = window.prompt(
-    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 = 'refill', 2 = 'upgrade', or 3 = 'leave' to make a choice."
+    "Would you like to REFILL your health, UPGRADE your attack, or LEAVE the store? Please enter one: 1 = REFILL, 2 = UPGRADE, or 3 = LEAVE to make a choice."
     );
+
+    //make th input fromo the player a integer
+    shopOptionPrompt = parseInt(shopOptionPrompt);
 
     // use switch to carry out action
     switch (shopOptionPrompt) {
         //case "REFILL": // new case
         //case "refill":
-        case "1":
+        case 1:
             playerInfo.refillHealth();
+            window.alert("Back to the fight!");
             break;
             /* Logic moved to player info object
             if (playerInfo.money >= 7) {
@@ -349,8 +351,9 @@ var shop = function() {
 
         //case "UPGRADE": // new case
         //case "upgrade":
-        case "2":
+        case 2:
             playerInfo.upgradeAttack();
+            window.alert("Back to the fight!");
             break;  
             /* Logic moved to player info object    
             if (playerInfo.money >= 7) {
@@ -369,7 +372,7 @@ var shop = function() {
         
         //case "LEAVE": // new case
         //case "leave":           
-        case "3":
+        case 3:
             window.alert("Leaving the store.");
             // do nothing, so function will end
             break;
